@@ -1,6 +1,6 @@
 
-package ClinicaVeterinaria.DAO;
-import ClinicaVeterinaria.dto.CitaDTO;
+package ClinicaVeterinaria.logica.DAO;
+import ClinicaVeterinaria.logica.dto.CitaDTO;
 
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -11,10 +11,7 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-/**
- *
- * @author LEGION
- */
+
 public class CitaDAO extends ConexionBD{
     private final static String SQL_INSERT = "INSERT INTO cita(fecha, hora, motivo, estatus, idMascota, idVeterianrio) VALUES (?, ?, ?, ?, ?, ?)";
     private final static String SQL_UPDATE = "UPDATE cita SET fecha=?, hora=?, motivo=?, estatus=?, idMascota=?, idVeterianrio=? WHERE idCita=?";

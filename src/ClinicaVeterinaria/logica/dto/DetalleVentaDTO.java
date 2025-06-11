@@ -1,5 +1,5 @@
 
-package ClinicaVeterinaria.dto;
+package ClinicaVeterinaria.logica.dto;
 
 
 public class DetalleVentaDTO {

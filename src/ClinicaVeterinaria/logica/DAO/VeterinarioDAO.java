@@ -1,11 +1,11 @@
 
 
-package ClinicaVeterinaria.DAO;
+package ClinicaVeterinaria.logica.DAO;
 /**
  *
  * @author LEGION
  */
-import ClinicaVeterinaria.dto.VeterinarioDTO;
+import ClinicaVeterinaria.logica.dto.VeterinarioDTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -228,6 +228,62 @@ public class VeterinarioDAO extends ConexionBD {
                     System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
                 }
             }
+        }
+    }
+
+    public int consultasRealizadasEnMes(int vetId, int mes) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement("SELECT consultasMes(?, ?)");
+            stmt.setInt(1, vetId);
+            stmt.setInt(2, mes);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
+    }
+
+    public boolean verificarDisponibilidad(int idVet, Date fecha, Timestamp hora) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement("SELECT verificarDisponibilidadVeterinario(?, ?, ?)");
+            stmt.setInt(1, idVet);
+            stmt.setDate(2, fecha);
+            stmt.setTimestamp(3, hora);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+            return false;
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
+    }
+
+    public List<String> obtenerVeterinariosDisponibles(Date fecha, Timestamp hora) throws SQLException {
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        List<String> veterinarios = new ArrayList<>();
+        try {
+            cs = conn.prepareCall("{CALL obtenerVeterinariosDisponibles(?, ?)}");
+            cs.setDate(1, fecha);
+            cs.setTimestamp(2, hora);
+            rs = cs.executeQuery();
+            while (rs.next()) {
+                veterinarios.add(rs.getString("nombreCompleto"));
+            }
+            return veterinarios;
+        } finally {
+            if (rs != null) rs.close();
+            if (cs != null) cs.close();
         }
     }
 }

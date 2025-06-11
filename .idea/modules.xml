@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/appClinicaVeterinaria.iml" filepath="$PROJECT_DIR$/appClinicaVeterinaria.iml" />
+      <module fileurl="file://$PROJECT_DIR$/proyecto_practicas.iml" filepath="$PROJECT_DIR$/proyecto_practicas.iml" />
     </modules>
   </component>
 </project>

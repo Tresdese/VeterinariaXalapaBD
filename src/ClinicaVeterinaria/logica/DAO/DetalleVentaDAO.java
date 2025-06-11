@@ -1,6 +1,6 @@
 
-package ClinicaVeterinaria.DAO;
-import ClinicaVeterinaria.dto.DetalleVentaDTO;
+package ClinicaVeterinaria.logica.DAO;
+import ClinicaVeterinaria.logica.dto.DetalleVentaDTO;
 
 import java.sql.*;
 import java.sql.SQLException;

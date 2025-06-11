@@ -1,6 +1,6 @@
 
-package ClinicaVeterinaria.DAO;
-import ClinicaVeterinaria.dto.ProductoDTO;
+package ClinicaVeterinaria.logica.DAO;
+import ClinicaVeterinaria.logica.dto.ProductoDTO;
 
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -155,6 +155,23 @@ public class ProductoDAO extends ConexionBD {
             }
         }
         return lista;
+    }
+
+    public int contarProductosPorNombre(String nombreProducto) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement("SELECT contarProductosPorNombre(?)");
+            stmt.setString(1, nombreProducto);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
     }
     
 }

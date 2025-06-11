@@ -1,5 +1,5 @@
 
-package ClinicaVeterinaria.dto;
+package ClinicaVeterinaria.logica.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

@@ -1,15 +1,13 @@
 
-package ClinicaVeterinaria.DAO;
-import ClinicaVeterinaria.dto.VentaDTO;
-import ClinicaVeterinaria.dto.DetalleVentaDTO;
+package ClinicaVeterinaria.logica.DAO;
+import ClinicaVeterinaria.logica.dto.VentaDTO;
+import ClinicaVeterinaria.logica.dto.DetalleVentaDTO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- *
- * @author LEGION
- */
 public class VentaDAO extends ConexionBD {
     private final static String SQL_INSERT = "INSERT INTO venta(fecha) VALUES (?)";
     private final static String SQL_UPDATE = "UPDATE venta SET fecha=? WHERE idVenta=?";
@@ -202,6 +200,35 @@ public class VentaDAO extends ConexionBD {
             if (psDetalle != null) psDetalle.close();
             conn.setAutoCommit(true); // Restaurar estado
         }
+    }
+
+    public List<Map<String, Object>> obtenerEstadisticasVentas(int mes) throws SQLException {
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> resultados = new ArrayList<>();
+        try {
+            cs = conn.prepareCall("{CALL estadisticasVentasMes(?)}");
+            cs.setInt(1, mes);
+            boolean hasResult = cs.execute();
+            while (hasResult) {
+                rs = cs.getResultSet();
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnCount = meta.getColumnCount();
+                while (rs.next()) {
+                    Map<String, Object> fila = new HashMap<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        fila.put(meta.getColumnName(i), rs.getObject(i));
+                    }
+                    resultados.add(fila);
+                }
+                if (rs != null) rs.close();
+                hasResult = cs.getMoreResults();
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (cs != null) cs.close();
+        }
+        return resultados;
     }
     
 }
