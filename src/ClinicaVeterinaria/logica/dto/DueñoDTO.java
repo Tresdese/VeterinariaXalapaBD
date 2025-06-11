@@ -10,6 +10,18 @@ public class DueñoDTO {
     private String telefono;
     private String email;
 
+    public DueñoDTO() {}
+
+    public DueñoDTO(int idCliente, String apellido_M, String apellido_P, String nombre, String numDirCliente, String telefono, String email) {
+        this.idCliente = idCliente;
+        this.apellido_M = apellido_M;
+        this.apellido_P = apellido_P;
+        this.nombre = nombre;
+        this.numDirCliente = numDirCliente;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
     public int getIdCliente() {
         return idCliente;
     }

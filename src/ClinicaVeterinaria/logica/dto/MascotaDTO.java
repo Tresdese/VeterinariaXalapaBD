@@ -12,6 +12,20 @@ public class MascotaDTO {
     private String fechaNac;
     private int idCliente;
 
+    public MascotaDTO() {}
+
+    public MascotaDTO(int idMascota, String nombre, String especie, String raza, String color, String peso, String tamaño, String fechaNac, int idCliente) {
+        this.idMascota = idMascota;
+        this.nombre = nombre;
+        this.especie = especie;
+        this.raza = raza;
+        this.color = color;
+        this.peso = peso;
+        this.tamaño = tamaño;
+        this.fechaNac = fechaNac;
+        this.idCliente = idCliente;
+    }
+
     public int getIdMascota() {
         return idMascota;
     }
