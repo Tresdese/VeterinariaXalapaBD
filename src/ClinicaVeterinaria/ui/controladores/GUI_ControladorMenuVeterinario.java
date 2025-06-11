@@ -1,4 +1,4 @@
-package ClinicaVeterinaria.ui.controller;
+package ClinicaVeterinaria.ui.controladores;
 
 public class GUI_ControladorMenuVeterinario {
 }
